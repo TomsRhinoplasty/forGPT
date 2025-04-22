@@ -1,11 +1,21 @@
 // public/js/main.js ― orchestration, UI wiring & streaming ChatGPT integration
 
 import * as d3 from "https://unpkg.com/d3?module";
-import { debounce }    from "./debounce.js";
-import { initDrawer }  from "./drawer.js";
-import { mainNodes as defaultMap } from "./data.js";
-import { computeLayout }  from "./layout.js";
-import { gatherConnectors } from "./nodes.js";
+// BEFORE:
+// import { debounce }    from "./debounce.js";
+// import { initDrawer }  from "./drawer.js";
+// import { computeLayout }  from "./layout.js";
+// import { gatherConnectors } from "./nodes.js";
+// import { bindTooltip, initZoom, … } from "./interactions.js";
+// import { animateZoomToBounds, startAnimationLoop } from "./animation.js";
+// import { emitMapUpdate, onMapUpdate } from "./realtime.js";
+
+// AFTER:
+import { debounce }    from "./utils/debounce.js";
+import { uid }         from "./utils/uid.js";
+import { initDrawer }  from "./adapters/uiAdapter.js";
+import { computeLayout }  from "./domain/layoutLogic.js";
+import { gatherConnectors } from "./domain/connectorLogic.js";
 import {
   bindTooltip,
   initZoom,
@@ -16,10 +26,12 @@ import {
   saveMapAsNew,
   showMapLibrary,
   editInlineText
-} from "./interactions.js";
-import { animateZoomToBounds, startAnimationLoop } from "./animation.js";
-import { config }       from "./config.js";
-import { emitMapUpdate, onMapUpdate } from "./realtime.js";
+} from "./adapters/uiAdapter.js";
+import { animateZoomToBounds, startAnimationLoop } from "./adapters/d3Adapter.js";
+import { emitMapUpdate, onMapUpdate } from "./services/realtimeService.js";
+import { config }     from "./config.js";
+import { mainNodes as defaultMap } from "./data.js";
+
 
 // ───────────────────────── Globals & SVG ─────────────────────────
 window.clientID         = Math.random().toString(36).substr(2, 9);
