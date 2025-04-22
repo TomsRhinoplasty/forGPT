@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Chained Main Nodes with Arbitrary Nested Children</title>
+  <!-- All styling is managed in the external CSS file -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Top Toolbar -->
+  <div id="topToolbar">
+    <div id="controlButtons">
+      <button id="expandButton">Expand</button>
+      <button id="resetZoom">Reset Zoom</button>
+      <button id="collapseButton">Collapse</button>
+      <button id="chatToggleButton">Ask GPT</button>
+      <!-- Map Management Buttons -->
+      <button id="saveNowButton">Save Now</button>
+      <button id="saveAsNewMapButton">Save as New Map</button>
+      <button id="loadMapButton">Load Map</button>
+      <button id="newMapButton">New Map</button>
+      <button id="undoButton">Undo</button>
+    </div>
+
+    <!-- Status Area: Current Map, User & Logout -->
+    <div id="toolbarStatus" class="toolbar-status">
+      <!-- Filled in by main.js -->
+    </div>
+
+    <!-- Legend in Toolbar -->
+    <div id="toolbarLegend">
+      <div><div class="legend-circle legend-ai"></div>AI-driven Task</div>
+      <div><div class="legend-circle legend-human"></div>Human-required Task</div>
+      <div><div class="legend-circle legend-hybrid"></div>Hybrid Task</div>
+    </div>
+  </div>
+
+  <!-- Modal for Map Library -->
+  <div id="mapLibraryModal" class="modal hidden">
+    <div class="modal-content">
+      <span id="closeModal" class="close">&times;</span>
+      <h2>Map Library</h2>
+      <div id="mapList"></div>
+    </div>
+  </div>
+
+  <!-- Generic Custom Modal -->
+  <div id="customModal" class="modal hidden">
+    <div class="modal-content">
+      <span id="customModalClose" class="close">&times;</span>
+      <h2 id="customModalTitle"></h2>
+      <div id="customModalBody"></div>
+      <div style="margin-top: 10px; display: flex; gap: 10px;">
+        <button id="customModalOk">OK</button>
+        <button id="customModalCancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Map Container -->
+  <div id="mapContainer">
+    <svg id="map"></svg>
+  </div>
+  <div id="tooltip"></div>
+  
+  <!-- Chat Drawer -->
+  <div id="chatDrawer">
+    <div id="chatLog" class="chat-log"></div>
+    <div id="chatInputArea" class="chat-input-area">
+      <textarea id="chatInput" placeholder="Type your message here..."></textarea>
+      <button id="chatSendButton">Send</button>
+    </div>
+  </div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

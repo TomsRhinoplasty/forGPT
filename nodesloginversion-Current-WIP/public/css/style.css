@@ -1,0 +1,278 @@
+/* -----------------------------------------------------------------
+   Global Styles
+------------------------------------------------------------------*/
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #000;
+}
+
+/* -----------------------------------------------------------------
+   Map Container
+------------------------------------------------------------------*/
+#mapContainer {
+  position: absolute;
+  top: 40px;              /* below toolbar */
+  left: 0;
+  width: 100%;
+  height: calc(100% - 40px);
+  overflow: hidden;
+  transition: width 0.3s ease, left 0.3s ease;
+}
+
+/* -----------------------------------------------------------------
+   SVG
+------------------------------------------------------------------*/
+svg {
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+  background: #000;
+}
+
+/* -----------------------------------------------------------------
+   Node Styling
+------------------------------------------------------------------*/
+.node circle {
+  stroke: #fff;
+  stroke-width: 2px;
+}
+.node.toDelete circle {
+  stroke: #ff0000;
+  stroke-width: 4px;
+}
+.ai     { fill: #4CAF50; }
+.human  { fill: #F44336; }
+.hybrid { fill: #2196F3; }
+
+/* node labels */
+.node text {
+  font-family: sans-serif;
+  font-size: 14px;
+  fill: #fff;
+  text-anchor: middle;
+  pointer-events: none;
+}
+
+/* -----------------------------------------------------------------
+   Connectors
+------------------------------------------------------------------*/
+.link {
+  stroke: rgba(255, 255, 255, 0.3);
+  stroke-width: 2px;
+  fill: none;
+  stroke-dasharray: 5 5;
+  animation: dash 1s linear infinite;
+}
+@keyframes dash {
+  from { stroke-dashoffset: 0; }
+  to   { stroke-dashoffset: -10; }
+}
+
+/* -----------------------------------------------------------------
+   Tooltip
+------------------------------------------------------------------*/
+#tooltip {
+  position: absolute;
+  background: #fff;
+  color: #000;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  pointer-events: none;
+  display: none;
+  font-family: sans-serif;
+  font-size: 14px;
+  z-index: 10;
+}
+
+/* -----------------------------------------------------------------
+   Top Toolbar
+------------------------------------------------------------------*/
+#topToolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background: rgba(211, 211, 211, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+#controlButtons {
+  display: flex;
+  gap: 10px;
+}
+#controlButtons button {
+  padding: 4px 8px;
+  background: transparent;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+/* Legend (in toolbar) */
+#toolbarLegend {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  margin-left: 10px;
+}
+#toolbarLegend > div {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+}
+#toolbarLegend .legend-circle {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 4px;
+}
+#toolbarLegend .legend-ai     { background-color: #4CAF50; }
+#toolbarLegend .legend-human  { background-color: #F44336; }
+#toolbarLegend .legend-hybrid { background-color: #2196F3; }
+
+/* -----------------------------------------------------------------
+   Chat Drawer
+------------------------------------------------------------------*/
+#chatDrawer {
+  position: fixed;
+  top: 40px;
+  bottom: 0;
+  left: -20vw;            /* hidden by default */
+  width: 20vw;
+  background: rgba(255,255,255,0.95);
+  border-right: 1px solid #ccc;
+  display: flex;
+  flex-direction: column;
+  transition: left 0.3s ease;
+  z-index: 50;
+}
+#chatDrawer.open { left: 0; }
+
+.chat-log {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+  background: #fdfdfd;
+}
+.chat-message {
+  margin-bottom: 10px;
+  padding: 6px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+.chat-message.user-message { background-color: #d1e7dd; text-align: right; }
+.chat-message.bot-message  { background-color: #f8d7da; text-align: left; }
+
+.chat-input-area {
+  border-top: 1px solid #ccc;
+  padding: 10px;
+  background: #fff;
+}
+.chat-input-area textarea {
+  width: calc(100% - 20px);
+  height: 60px;
+  margin-bottom: 5px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: none;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+.chat-input-area button {
+  width: 100%;
+  padding: 8px 16px;
+  background: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.chat-input-area button:hover { background: #218838; }
+
+/* -----------------------------------------------------------------
+   Modals
+------------------------------------------------------------------*/
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #222;
+  color: #fff;
+  padding: 20px;
+  border: 1px solid #444;
+  border-radius: 8px;
+  width: 300px;
+  z-index: 150;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+.modal .close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 20px;
+  cursor: pointer;
+}
+.hidden { display: none; }
+
+/* -----------------------------------------------------------------
+   Map Library List
+------------------------------------------------------------------*/
+#mapList {
+  max-height: 300px;
+  overflow-y: auto;
+  margin-top: 10px;
+}
+.mapItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-bottom: 1px solid #444;
+}
+.mapItem:hover { background-color: #333; }
+.trashBtn {
+  margin-left: 10px;
+  cursor: pointer;
+  color: #F44336;
+  font-size: 16px;
+}
+.trashBtn:hover { color: #ff7961; }
+
+/* -----------------------------------------------------------------
+   Toast (non‑blocking confirmations)
+------------------------------------------------------------------*/
+.toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #4CAF50;
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 4px;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 200;
+  transition: opacity 0.3s ease;
+}
+.toast.show { opacity: 1; }
